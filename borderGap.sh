@@ -1,5 +1,11 @@
 #!/bin/zsh
 
-if [[ $# -eq 2 ]] && bspc config window_gap $2
+# Utility to set gap width in bspwm
 
+if [[ $# -ne 1 ]]; then
+        echo "Usage: $0 [Border-Gap]"
+        exit 1
+fi
+
+bspc config window_gap $1
 
