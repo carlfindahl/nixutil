@@ -2,6 +2,6 @@
 
 # Set BSPWM to a Screenshot friendly mode
 
-./borderGap.sh 100
-./borderSize.sh 0
+$HOME/usr/dev/nixUtil/borderGap.sh 100
+$HOME/usr/dev/nixUtil/borderSize.sh 0
 
