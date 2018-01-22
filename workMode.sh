@@ -2,6 +2,8 @@
 
 # Set BSPWM to a work efficient layout
 
-/home/carl/usr/dev/nixUtil/borderGap.sh 20
-/home/carl/usr/dev/nixUtil/borderSize.sh 1
+$HOME/usr/dev/nixUtil/borderGap.sh 20
+$HOME/usr/dev/nixUtil/borderSize.sh 1
+
+$HOME/usr/dev/nixUtil/startLemonBar.sh 1880
 

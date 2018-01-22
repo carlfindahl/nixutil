@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 # Script to feed LemonBar with info
-# Carl H. Findahl 2018
+# Carl Findahl 2018
 
 clock() {
         date +%H:%M:%S
@@ -21,7 +21,7 @@ battery02(){
 battery(){
         batstat=$(expr $(battery01) / 2 + $(battery02) / 2)
 
-        if [[ $batstat -gt 80 ]]; then
+        if [[ $batstat -gt 71 ]]; then
                 echo -n "\uf240 %{F#8C9440}"
         elif [[ $batstat -gt 60 ]]; then
                 echo -n "\uf241 %{F#DE935F}"
