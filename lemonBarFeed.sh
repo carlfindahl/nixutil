@@ -4,7 +4,7 @@
 # Carl Findahl 2018
 
 clock() {
-        date +%H:%M:%S
+        date '+%H:%M:%S | %d. %b'
 }
 
 # Compute average of both batteries and show icon
@@ -16,17 +16,29 @@ battery(){
 
         batcur=$(expr $BATAEN + $BATBEN)
         batful=$(expr $BATAFL + $BATBFL)
-        batstat=$(python -c "print(f'{($batcur / $batful) * 100:4.2f}', end='')")
+        batstat=$(python -c "print(f'{($batcur / $batful) * 100:3.0f}', end='')")
+
+        batcharge=$(cat /sys/class/power_supply/BAT1/status)
+
+        if [[ $batcharge -eq "Charging" ]]; then
+                batcharge="\uf0e7"
+        else
+                batcharge=""
+        fi
+
+        echo -n "%{F#F0C674}$batcharge%{F-} "
 
         if [[ $batstat -gt 60 ]]; then
                 echo -n "\uf240 %{F#8C9440}"
-        elif [[ $batstat -gt 30 ]]; then
-                echo -n "\uf241 %{F#DE935F}"
+        elif [[ $batstat -gt 40 ]]; then
+                echo -n "\uf241 %{F#F0C674}"
+        elif [[ $batstat -gt 25 ]]; then
+                echo -n "\uf243 %{F#DE935F}"
         else
-                echo -n "\uf243 %{F#A54242}"
+                echo -n "\uf244 %{F#A54242}"
         fi
 
-        echo -n " $batstat% %{F-}"
+        echo -n "$batstat% %{F-}"
 }
 
 # Gather Volume Info
