@@ -5,7 +5,7 @@
 # Parameter $1 is the desired width ( for use with shotmode and workmode )
 
 # Close leombar if it already runs
-if [[ $(pgrep -c lemonbar) -eq 1 ]]; then
+if [[ $(pgrep -c lemonbar) -gt 0 ]]; then
         pkill lemonbar
 fi
 

@@ -7,23 +7,20 @@ clock() {
         date +%H:%M:%S
 }
 
-# Get battery 01 level
-battery01(){
-        cat /sys/class/power_supply/BAT0/capacity
-}
-
-# Compute battery 02 level
-battery02(){
-        cat /sys/class/power_supply/BAT1/capacity
-}
-
 # Compute average of both batteries and show icon
 battery(){
-        batstat=$(expr $(battery01) / 2 + $(battery02) / 2)
+        BATAEN=$(cat /sys/class/power_supply/BAT0/energy_now)
+        BATBEN=$(cat /sys/class/power_supply/BAT1/energy_now)
+        BATAFL=$(cat /sys/class/power_supply/BAT0/energy_full)
+        BATBFL=$(cat /sys/class/power_supply/BAT1/energy_full)
 
-        if [[ $batstat -gt 71 ]]; then
+        batcur=$(expr $BATAEN + $BATBEN)
+        batful=$(expr $BATAFL + $BATBFL)
+        batstat=$(python -c "print(f'{($batcur / $batful) * 100:4.2f}', end='')")
+
+        if [[ $batstat -gt 60 ]]; then
                 echo -n "\uf240 %{F#8C9440}"
-        elif [[ $batstat -gt 60 ]]; then
+        elif [[ $batstat -gt 30 ]]; then
                 echo -n "\uf241 %{F#DE935F}"
         else
                 echo -n "\uf243 %{F#A54242}"
