@@ -23,7 +23,7 @@ battery(){
         if [[ $batcharge -eq "Charging" ]]; then
                 batcharge="\uf0e7"
         else
-                batcharge=""
+                batcharge=" "
         fi
 
         echo -n "%{F#F0C674}$batcharge%{F-} "
