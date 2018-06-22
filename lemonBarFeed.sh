@@ -20,10 +20,10 @@ battery(){
 
         batcharge=$(cat /sys/class/power_supply/BAT1/status)
 
-        if [[ $batcharge -eq "Charging" ]]; then
-                batcharge="\uf0e7"
-        else
+        if [[ $batcharge -eq "Discharging" ]]; then
                 batcharge=" "
+        else
+                batcharge="\uf0e7"
         fi
 
         echo -n "%{F#F0C674}$batcharge%{F-} "
