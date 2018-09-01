@@ -4,7 +4,7 @@
 # Carl Findahl 2018
 
 clock() {
-        date '+%H:%M:%S | %d. %b'
+        date '+%H:%M | %d. %b'
 }
 
 # Compute average of both batteries and show icon
@@ -18,15 +18,16 @@ battery(){
         batful=$(expr $BATAFL + $BATBFL)
         batstat=$(python -c "print(f'{($batcur / $batful) * 100:3.0f}', end='')")
 
-        batcharge=$(cat /sys/class/power_supply/BAT1/status)
+        # Not working at the moment /shrug
+        # batcharge=$(cat /sys/class/power_supply/BAT0/status)
 
-        if [[ $batcharge -eq "Discharging" ]]; then
-                batcharge=" "
-        else
-                batcharge="\uf0e7"
-        fi
+        # if [[ $batcharge -eq "Discharging" ]]; then
+        #         batcharge=" "
+        # else
+        #         batcharge="\uf0e7"
+        # fi
 
-        echo -n "%{F#F0C674}$batcharge%{F-} "
+        # echo -n "%{F#F0C674}$batcharge%{F-} "
 
         if [[ $batstat -gt 60 ]]; then
                 echo -n "\uf240 %{F#8C9440}"
