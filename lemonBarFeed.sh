@@ -3,20 +3,21 @@
 # Script to feed LemonBar with info
 # Carl Findahl 2018
 
-clock() {
+clock()
+{
         date '+%H:%M | %d. %b'
 }
 
 # Compute average of both batteries and show icon
-battery(){
+battery()
+{
         BATAEN=$(cat /sys/class/power_supply/BAT0/energy_now)
         BATBEN=$(cat /sys/class/power_supply/BAT1/energy_now)
         BATAFL=$(cat /sys/class/power_supply/BAT0/energy_full)
         BATBFL=$(cat /sys/class/power_supply/BAT1/energy_full)
 
-        batcur=$(expr $BATAEN + $BATBEN)
-        batful=$(expr $BATAFL + $BATBFL)
-        batstat=$(python -c "print(f'{($batcur / $batful) * 100:3.0f}', end='')")
+        bat1stat=$(python -c "print(f'{($BATAEN / $BATAFL) * 100:2.0f}', end='')")
+        bat2stat=$(python -c "print(f'{($BATBEN / $BATBFL) * 100:2.0f}', end='')")
 
         # Not working at the moment /shrug
         # batcharge=$(cat /sys/class/power_supply/BAT0/status)
@@ -29,17 +30,29 @@ battery(){
 
         # echo -n "%{F#F0C674}$batcharge%{F-} "
 
-        if [[ $batstat -gt 60 ]]; then
+        if [[ $bat1stat -gt 60 ]]; then
                 echo -n "\uf240 %{F#8C9440}"
-        elif [[ $batstat -gt 40 ]]; then
+        elif [[ $bat1stat -gt 40 ]]; then
                 echo -n "\uf241 %{F#F0C674}"
-        elif [[ $batstat -gt 25 ]]; then
+        elif [[ $bat1stat -gt 25 ]]; then
                 echo -n "\uf243 %{F#DE935F}"
         else
                 echo -n "\uf244 %{F#A54242}"
         fi
 
-        echo -n "$batstat% %{F-}"
+        echo -n "$bat1stat% %{F-}"
+
+        if [[ $bat2stat -gt 60 ]]; then
+                echo -n " \uf240 %{F#8C9440}"
+        elif [[ $bat2stat -gt 40 ]]; then
+                echo -n " \uf241 %{F#F0C674}"
+        elif [[ $bat2stat -gt 25 ]]; then
+                echo -n " \uf243 %{F#DE935F}"
+        else
+                echo -n " \uf244 %{F#A54242}"
+        fi
+
+        echo -n "$bat2stat% %{F-}"
 }
 
 # Gather Volume Info

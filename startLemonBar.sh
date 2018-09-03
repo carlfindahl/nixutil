@@ -20,7 +20,9 @@ fi
 diff=$(expr 1920 - $width)
 diff=$(expr $diff / 2)
 
-# Launch Bar
- ~/usr/dev/nixutil/lemonBarFeed.sh | lemonbar -g ${width}x20+${diff}+0 -p -n LM_BAR -B '#D81D1F21' -F '#707880' -f 'Hack-9' -f 'FontAwesome' &
+# Source wal colors
+. "${HOME}/.cache/wal/colors.sh"
 
+# Launch Bar
+ ~/usr/dev/nixutil/lemonBarFeed.sh | lemonbar -g ${width}x20+${diff}+0 -p -n LM_BAR -B "$color0" -F '$color8' -f 'Hack-9' -f 'FontAwesome' &
 
