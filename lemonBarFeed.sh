@@ -58,7 +58,7 @@ volume(){
 # Get Network Connection Info
 network(){
         # Gather basic info about interface and connection
-        ip link show enp0s25 | grep 'state UP' > /dev/null && int=enp0s25 || int=wlp3s0
+        ip link show enp0s31f6 | grep 'state UP' > /dev/null && int=enp0s31f6 || int=wlp3s0
         ping -c 1 8.8.8.8 >/dev/null 2>&1 && con=true || con=false
 
         # Print Interface information
@@ -71,8 +71,8 @@ network(){
         # Print IP and Connection Info
         if [[ con -eq true ]]; then
                 echo -n "%{F#8C9440}"
-                cname=$(nmcli device show $int | grep GENERAL.CONNECTION | cut -c 41-)
-                ipa=$(nmcli device show $int | grep IP4.ADDRESS | cut -c 41-)
+                cname=$(iw dev wlp3s0 link | grep SSID | cut -c 8-)
+                ipa=$(ip -o route get 8.8.8.8 | sed -n 's/.*src \([0-9.]\+\).*/\1/p')
                 echo -n $cname
                 echo -n " $ipa"
                 echo -n "%{F-}"

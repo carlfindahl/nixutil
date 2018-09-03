@@ -21,6 +21,6 @@ diff=$(expr 1920 - $width)
 diff=$(expr $diff / 2)
 
 # Launch Bar
- ~/usr/dev/nixUtil/lemonBarFeed.sh | lemonbar -g ${width}x20+${diff}+0 -p -n LM_BAR -B '#D81D1F21' -F '#707880' -f 'Sourc    e Code Pro-9' -f 'Font Awesome' &
+ ~/usr/dev/nixutil/lemonBarFeed.sh | lemonbar -g ${width}x20+${diff}+0 -p -n LM_BAR -B '#D81D1F21' -F '#707880' -f 'Hack-9' -f 'FontAwesome' &
 
 
