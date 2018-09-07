@@ -24,5 +24,5 @@ diff=$(expr $diff / 2)
 . "${HOME}/.cache/wal/colors.sh"
 
 # Launch Bar
- ~/usr/dev/nixutil/lemonBarFeed.sh | lemonbar -g ${width}x20+${diff}+0 -p -n LM_BAR -B "$color0" -F '$color8' -f 'Hack-9' -f 'FontAwesome' &
+ ~/usr/dev/nixutil/lemonBarFeed.sh | lemonbar -g ${width}x20+${diff}+0 -p -n LM_BAR -B "$color0" -F "$color8" -f 'Hack-9' -f 'FontAwesome' &
 
