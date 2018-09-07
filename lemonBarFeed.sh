@@ -11,48 +11,34 @@ clock()
 # Compute average of both batteries and show icon
 battery()
 {
-        BATAEN=$(cat /sys/class/power_supply/BAT0/energy_now)
-        BATBEN=$(cat /sys/class/power_supply/BAT1/energy_now)
-        BATAFL=$(cat /sys/class/power_supply/BAT0/energy_full)
-        BATBFL=$(cat /sys/class/power_supply/BAT1/energy_full)
+        bat1stat=$(< /sys/class/power_supply/BAT0/capacity)
+        bat2stat=$(< /sys/class/power_supply/BAT1/capacity)
+        bat1chr=$(< /sys/class/power_supply/BAT0/status)
+        bat2chr=$(< /sys/class/power_supply/BAT1/status)
 
-        bat1stat=$(python -c "print(f'{($BATAEN / $BATAFL) * 100:2.0f}', end='')")
-        bat2stat=$(python -c "print(f'{($BATBEN / $BATBFL) * 100:2.0f}', end='')")
+        case "$bat1stat" in
+                [0-9]) bat1icon="\\uf244 %{F#BF2828}" ;;
+                [1-3]?) bat1icon="\\uf243 %{F#BF6428}" ;;
+                [4-5]?) bat1icon="\\uf242 %{F#D69F28}" ;;
+                [6-7]?) bat1icon="\\uf241 %{F#DBDD3D}" ;;
+                *) bat1icon="\\uf240 %{F#AEDB3D}" ;;
+        esac 
 
-        # Not working at the moment /shrug
-        # batcharge=$(cat /sys/class/power_supply/BAT0/status)
+        [[ "$bat1chr" == Charging ]] && bat1icon+="+"
 
-        # if [[ $batcharge -eq "Discharging" ]]; then
-        #         batcharge=" "
-        # else
-        #         batcharge="\uf0e7"
-        # fi
+        echo -n "$bat1icon$bat1stat% %{F-}"
 
-        # echo -n "%{F#F0C674}$batcharge%{F-} "
+        case "$bat2stat" in
+                [0-9]) bat2icon="\\uf244 %{F#BF2828}" ;;
+                [1-3]?) bat2icon="\\uf243 %{F#BF6428}" ;;
+                [4-5]?) bat2icon="\\uf242 %{F#D69F28}" ;;
+                [6-7]?) bat2icon="\\uf241 %{F#DBDD3D}" ;;
+                *) bat2icon="\\uf240 %{F#AEDB3D}" ;;
+        esac 
 
-        if [[ $bat1stat -gt 60 ]]; then
-                echo -n "\uf240 %{F#8C9440}"
-        elif [[ $bat1stat -gt 40 ]]; then
-                echo -n "\uf241 %{F#F0C674}"
-        elif [[ $bat1stat -gt 25 ]]; then
-                echo -n "\uf243 %{F#DE935F}"
-        else
-                echo -n "\uf244 %{F#A54242}"
-        fi
+        [[ "$bat2chr" == Charging ]] && bat2icon+="+"
 
-        echo -n "$bat1stat% %{F-}"
-
-        if [[ $bat2stat -gt 60 ]]; then
-                echo -n " \uf240 %{F#8C9440}"
-        elif [[ $bat2stat -gt 40 ]]; then
-                echo -n " \uf241 %{F#F0C674}"
-        elif [[ $bat2stat -gt 25 ]]; then
-                echo -n " \uf243 %{F#DE935F}"
-        else
-                echo -n " \uf244 %{F#A54242}"
-        fi
-
-        echo -n "$bat2stat% %{F-}"
+        echo -n " $bat2icon$bat2stat% %{F-}"
 }
 
 # Gather Volume Info
@@ -60,10 +46,12 @@ volume()
 {
         volstat=$(amixer -c 0 get Master | sed -n 's/^.*\[\([0-9]\+\)%.*$/\1/p' | uniq)
 
-        if [[ $volstat -gt 50 ]]; then
+        if [[ $volstat -gt 60 ]]; then
                 echo -n "\uf028"
-        else
+        elif [[ $volstat -gt 30 ]]; then
                 echo -n "\uf027"
+        else
+                echo -n "\uf026"
         fi
 
         echo -n " $volstat%"
