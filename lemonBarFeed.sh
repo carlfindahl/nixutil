@@ -73,7 +73,7 @@ network()
 
         # Print IP and Connection Info
         if [[ con -eq true ]]; then
-                echo -n "%{F#8C9440}"
+                echo -n "%{F#DBDD3D}"
                 cname=$(iw dev $int link | grep SSID | cut -c 8-)
                 ipa=$(ip -o route get 8.8.8.8 | sed -n 's/.*src \([0-9.]\+\).*/\1/p')
                 echo -n $cname
