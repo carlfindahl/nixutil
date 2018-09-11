@@ -7,4 +7,5 @@ ln -s $(pwd)/glDocsDmenu.sh ~/usr/bin/glMenu
 ln -s $(pwd)/screenshotMode.sh ~/usr/bin/shotmode
 ln -s $(pwd)/workMode.sh ~/usr/bin/workmode
 ln -s $(pwd)/externalMonitor.sh ~/usr/bin/conmon
+ln -s $(pwd)/launchKeepass.sh ~/usr/bin/keepassSafe
 
