@@ -7,8 +7,7 @@
 
 helperLocation="/home/carl/usr/dev/nixUtil/"
 
-choice=$(python ${helperLocation}glDocsCommandFetcher.py | dmenu -fn 'Roboto-9' -nb '#03142c' -nf '#a5d1da' -sb
-'#03142c' -sf '#dbdd3d' -p '>' -b)
+choice=$(python ${helperLocation}glDocsCommandFetcher.py | dmenu -fn 'Roboto-9' -nb '#03142c' -nf '#a5d1da' -sb '#03142c' -sf '#dbdd3d' -p 'GL Cmd:' -b)
 
 if [[ ! -z "${choice// /}" ]]
 then

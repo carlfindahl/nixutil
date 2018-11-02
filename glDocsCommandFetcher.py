@@ -9,13 +9,14 @@ import requests
 import pathlib
 import bs4
 
+cacheFile = "/home/carl/.cache/glList.txt"
 
 def main():
         glCommands = []
 
         # If command list is cached load from file
-        if pathlib.Path.exists(pathlib.Path("/tmp/glList.txt")):
-                with open("/tmp/glList.txt", 'r') as f:
+        if pathlib.Path.exists(pathlib.Path(cacheFile)):
+                with open(cacheFile, 'r') as f:
                         glCommands = [line for line in f]
 
         # Otherwise get fresh list from web
@@ -28,7 +29,7 @@ def main():
                         glCommands.append(f"{span.string}\n")
 
                 # Write cached file
-                with open("/tmp/glList.txt", 'w') as f:
+                with open(cacheFile, 'w') as f:
                         for cmd in glCommands:
                                 f.write(f"{cmd}")
 

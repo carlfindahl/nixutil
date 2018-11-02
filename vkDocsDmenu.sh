@@ -5,8 +5,7 @@
 # Author: Carl Findahl
 # Date: 21.07.2018
 
-choice=$(python "/home/carl/usr/dev/nixutil/vkDocsCommandFetcher.py" | dmenu -fn 'Roboto-9' -nb '#1d1f21' -nf '#c5c8c6' -sb '#538d87' -sf '#c5c8c6' -p 'Enter Vulkan
-Command To Look Up:' -b)
+choice=$(python "/home/carl/usr/dev/nixutil/vkDocsCommandFetcher.py" | dmenu -fn 'Roboto-9' -nb "#03142c" -nf "#a5d1da" -sb "#03142c" -sf '#dbdd3d' -p 'Vulkan Cmd:' -b)
 
 if [[ ! -z "${choice// /}" ]]
 then
